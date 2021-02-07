@@ -17,23 +17,10 @@ public class Gate : MonoBehaviour
 
     public void Power(Arguments args)
     {
-        if (args.source.x != 0 && horizontal)
-        {
-            open = !args.off;
-        }
-        else if (args.source.y != 0 && !horizontal)
-        {
-            open = !args.off;
-        }
 
-        else
-        {
-            powered = args.off;
-
-        }
         if (open)
         {
-            if (!horizontal)
+            if (!horizontal && args.source.y ==0)
             {
                 // +X
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.right + new Vector3(0.5f, 0.5f), obstacles);
@@ -47,7 +34,7 @@ public class Gate : MonoBehaviour
                 if (hit)
                     hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, powered), SendMessageOptions.DontRequireReceiver);
             }
-            else
+            else if(horizontal && args.source.x == 0)
             {
                 // +Y
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.up + new Vector3(0.5f, 0.5f), obstacles);
@@ -91,6 +78,20 @@ public class Gate : MonoBehaviour
                 if (hit)
                     hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, true), SendMessageOptions.DontRequireReceiver);
             }
+        }
+        if (args.source.x != 0 && horizontal)
+        {
+            open = !args.off;
+        }
+        else if (args.source.y != 0 && !horizontal)
+        {
+            open = !args.off;
+        }
+
+        else
+        {
+            powered = !args.off;
+
         }
         spriteRenderer.sprite = sprites[open ? 0 : 1];
     }

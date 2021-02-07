@@ -1,10 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
-using System.Collections;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 public class GameManager : MonoBehaviour
 {
@@ -82,23 +78,13 @@ public class GameManager : MonoBehaviour
         if (testMode)
             return;
 
-        string path = Application.persistentDataPath + "/save.zsrr";
+        int i = PlayerPrefs.GetInt("save", 0);
+        int n = SceneManager.GetActiveScene().buildIndex;
 
-        int i = 0;
-        if(File.Exists(path))
-            i = int.Parse(File.ReadAllText(path));
+        if (i < n)
+            PlayerPrefs.SetInt("save", n);
 
-        if (i < SceneManager.GetActiveScene().buildIndex)
-        {
-            File.WriteAllText(path, SceneManager.GetActiveScene().buildIndex.ToString());
-        }
-
-
-        if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        else
-            SceneManager.LoadScene(0);
-
+        SceneManager.LoadScene(n + 1);
     }
 
 

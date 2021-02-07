@@ -4227,7 +4227,7 @@ MonoBehaviour:
   - {fileID: -7269697945286533571, guid: c08036d5b6e36e44cb0f5323dcae4f8a, type: 3}
   tens: {fileID: 1557810361}
   unities: {fileID: 925341333}
-  length: 12
+  length: 13
   enterance: {x: 2, y: 0}
   plugPosition: {x: 2, y: 1}
   plug: {fileID: 753842544}

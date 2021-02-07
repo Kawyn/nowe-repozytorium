@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private static int NUMBER_OF_LEVELS = 4;
+    private static int NUMBER_OF_LEVELS = 10;
     public Sprite[] mains;
     public Sprite[] levels;
 
@@ -49,7 +48,7 @@ public class MainMenu : MonoBehaviour
 
 
 
-        available = GetSave();
+        available = PlayerPrefs.GetInt("save", 0) + 1; 
         Debug.Log(available);
     }
     
@@ -62,7 +61,7 @@ public class MainMenu : MonoBehaviour
                 index--;
 
                 if (index < 0)
-                    index = 2;
+                    index = mains.Length - 1;
 
                 audioSource.clip = clips[0];
                 audioSource.Play();
@@ -73,7 +72,7 @@ public class MainMenu : MonoBehaviour
             {
                 index++;
 
-                if (index > 2)
+                if (index > mains.Length - 1)
                     index = 0;
 
                 audioSource.clip = clips[0];
@@ -97,6 +96,8 @@ public class MainMenu : MonoBehaviour
                             if (i < available && i < NUMBER_OF_LEVELS)
                                 continue;
 
+
+                            print(i);
                             padlocks[i].SetActive(true);
                         }
 
@@ -106,11 +107,7 @@ public class MainMenu : MonoBehaviour
                         break;
 
                     case 1:
-                        Debug.Log("Twórcy");
-                        break;
-
-                    case 2:
-                        Application.Quit();
+                        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
                         break;
                 }
             }
@@ -186,19 +183,5 @@ public class MainMenu : MonoBehaviour
         highlights[index].SetActive(false);
         index += offset;
         highlights[index].SetActive(true);
-    }
-    private static int GetSave()
-    {
-        string path = Application.persistentDataPath + "/save.zsrr";
-
-        if (File.Exists(path))
-        {
-            int i =  int.Parse(File.ReadAllText(path));
-
-            if (i > 0)
-                return i + 1;
-        }
-
-        return 1;
     }
 }
