@@ -72,8 +72,6 @@ public class GameManager : MonoBehaviour
             tens.sprite = numbers[t];
 
         unities.sprite = numbers[u];
-        foreach (Plug p in plugs)
-            p.Emit();
         foreach (Battery b in batteries)
             b.Refresh();
        

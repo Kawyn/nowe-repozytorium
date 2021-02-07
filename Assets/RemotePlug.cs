@@ -8,8 +8,15 @@ public class RemotePlug : MonoBehaviour
     public void Power(Arguments args)
     {
         if (args.off)
+        {
             plug.on = false;
+            plug.Emit(false);
+        }
         else
+        {
+            if(!plug.on)
+            plug.skipFirst = true;
             plug.on = true;
+        }
     }
 }

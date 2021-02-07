@@ -13,7 +13,7 @@ public class Plug : MonoBehaviour
 
     [HideInInspector] public List<Vector2Int> history = new List<Vector2Int>();
     [HideInInspector] public List<Wire> wires = new List<Wire>();
-
+    public bool skipFirst = false;
     public GameManager gameManager;
     public GameObject wirePrefab;
 
@@ -31,6 +31,14 @@ public class Plug : MonoBehaviour
     {
         if (remote && !on)
             return;
+        if(remote && on)
+        {
+            if(skipFirst)
+            {
+                skipFirst = false;
+                return;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.W))
             Move(Vector2Int.up);
@@ -41,7 +49,7 @@ public class Plug : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D))
             Move(Vector2Int.right);
     }
-
+    public Vector2Int remoteConnection = Vector2Int.down;
     private void Move(Vector2Int direction)
     {
         // NEVER TO RETURN!!!
@@ -125,8 +133,11 @@ public class Plug : MonoBehaviour
 
         if (history.Count != 0)
             nwire.outs[Wire.DirectionToIndex(-history[history.Count - 1])] = true;
-        else
-            nwire.outs[Wire.DirectionToIndex(gameManager.enterance - gameManager.plugPosition)] = true;
+        else if (remote)
+        {
+            nwire.outs[Wire.DirectionToIndex(remoteConnection)] = true;
+        }
+        else nwire.outs[Wire.DirectionToIndex(gameManager.enterance - gameManager.plugPosition)] = true;
         nwire.Refresh();
 
         transform.position = new Vector3(nx, ny, 0);
@@ -159,12 +170,10 @@ public class Plug : MonoBehaviour
             }
         }
     }
-    public void Emit()
+    public void Emit(bool on)
     {
-        if(socket)
-        {
-            socket.SendMessage("Power", new Arguments(Vector2.zero, false, false));
-        }
+        if (socket)
+            socket.SendMessage("Power", new Arguments(Vector2.zero, false, !on));
     }
     public LayerMask undoLayer;
     public int stop;

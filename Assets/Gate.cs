@@ -30,7 +30,6 @@ public class Gate : MonoBehaviour
         {
             powered = args.off;
 
-
         }
         if (open)
         {
@@ -64,19 +63,19 @@ public class Gate : MonoBehaviour
             }
         
         }
-        if(!open)
+       else
         {
             if (!horizontal)
             {
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.right + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, true), SendMessageOptions.DontRequireReceiver);
 
                 hit = Physics2D.OverlapPoint(transform.position + Vector3.left + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, true), SendMessageOptions.DontRequireReceiver);
             }
             else
             {
@@ -84,15 +83,15 @@ public class Gate : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.up + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.up, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.up, false, true), SendMessageOptions.DontRequireReceiver);
 
                 // -Y
                 hit = Physics2D.OverlapPoint(transform.position + Vector3.down + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, true), SendMessageOptions.DontRequireReceiver);
             }
         }
-        spriteRenderer.sprite = sprites[open ? 1 : 0];
+        spriteRenderer.sprite = sprites[open ? 0 : 1];
     }
 }

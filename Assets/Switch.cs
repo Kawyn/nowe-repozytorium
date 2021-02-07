@@ -11,7 +11,6 @@ public class Switch : MonoBehaviour
     GameManager gameManager;
     public LayerMask obstacles;
     SpriteRenderer spriteRenderer;
-
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
