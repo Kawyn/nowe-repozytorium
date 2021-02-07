@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+
 public class GameManager : MonoBehaviour
 {
     const int SIZE_X = 14;
@@ -26,12 +27,18 @@ public class GameManager : MonoBehaviour
     public Vector2Int plugPosition = new Vector2Int(1, 0);
     public GameObject plug;
 
+    private List<Plug> plugs = new List<Plug>();
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         plug = GameObject.Find("Plug");
         plug.transform.position = (Vector2)plugPosition;
         plug.GetComponent<Plug>().SetRotation(plugPosition - enterance);
+
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            plugs.Add(g.GetComponent<Plug>());
+        }
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Battery"))
         {
             batteries.Add(g.GetComponent<Battery>());
@@ -65,9 +72,11 @@ public class GameManager : MonoBehaviour
             tens.sprite = numbers[t];
 
         unities.sprite = numbers[u];
-
+        foreach (Plug p in plugs)
+            p.Emit();
         foreach (Battery b in batteries)
             b.Refresh();
+       
     }
 
     public void NextLevel()
@@ -99,9 +108,9 @@ public class GameManager : MonoBehaviour
     public void PlaySound(string clipName)
     {
         if (clipName == "m")
-            audioSource.clip = sounds[0];
-        else if (clipName == "c")
             audioSource.clip = sounds[1];
+        else if (clipName == "c")
+            audioSource.clip = sounds[0];
         else if (clipName == "b")
             audioSource.clip = sounds[2];
         else if (clipName == "s")

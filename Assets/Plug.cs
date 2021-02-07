@@ -23,6 +23,7 @@ public class Plug : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -43,6 +44,14 @@ public class Plug : MonoBehaviour
 
     private void Move(Vector2Int direction)
     {
+        // NEVER TO RETURN!!!
+        if (remote)
+        {
+            Plug p = gameManager.plug.GetComponent<Plug>();
+
+            if (p.history[p.history.Count - 1] == -direction)
+                return;
+        }
         if (socket)
         {
             int dx = (int)(socket.transform.position.x - transform.position.x);
@@ -139,12 +148,22 @@ public class Plug : MonoBehaviour
         {
             if (hit.transform.CompareTag("Socket"))
             {
-                gameManager.PlaySound("c");
-                socket = hit.transform.gameObject;
-                socket.SendMessage("Power", new Arguments(Vector2.zero, false, false));
-                spriteRenderer.sprite = sprites[spriteIndex + 4];
+                if (hit.gameObject.GetComponent<Condurctor>().connections[Wire.DirectionToIndex(-direction)]) {
+                   gameManager.PlaySound("c");
+                    socket = hit.transform.gameObject;
+                    socket.SendMessage("Power", new Arguments(Vector2.zero, false, false));
+                    spriteRenderer.sprite = sprites[spriteIndex + 4];
+
+                }
 
             }
+        }
+    }
+    public void Emit()
+    {
+        if(socket)
+        {
+            socket.SendMessage("Power", new Arguments(Vector2.zero, false, false));
         }
     }
     public LayerMask undoLayer;

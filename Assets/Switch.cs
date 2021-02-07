@@ -8,11 +8,11 @@ public class Switch : MonoBehaviour
     public int turn;
     public Sprite[] sprites = new Sprite[4];
     public bool[] connections = new bool[4];
-
+    GameManager gameManager;
     public LayerMask obstacles;
     SpriteRenderer spriteRenderer;
 
-    private void Start()
+    private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -34,6 +34,8 @@ public class Switch : MonoBehaviour
         }
 
         spriteRenderer.sprite = sprites[turn % 4];
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void Power(Arguments args)
@@ -74,6 +76,7 @@ public class Switch : MonoBehaviour
             turn++;
             turn %= 4;
             spriteRenderer.sprite = sprites[turn];
+            gameManager.PlaySound("s");
         }
 
         for (int i = 0; i < 4; i++)

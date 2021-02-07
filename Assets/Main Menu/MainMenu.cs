@@ -12,10 +12,9 @@ public class MainMenu : MonoBehaviour
     public Sprite[] levels;
 
     private bool main = true;
-
+    
     private SpriteRenderer spriteRenderer;
-
-
+    
 
     private List<GameObject> highlights = new List<GameObject>();
     private List<GameObject> padlocks = new List<GameObject>();

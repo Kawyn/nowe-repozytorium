@@ -4,6 +4,7 @@ public class RemotePlug : MonoBehaviour
 {
     public Plug plug;
 
+
     public void Power(Arguments args)
     {
         if (args.off)

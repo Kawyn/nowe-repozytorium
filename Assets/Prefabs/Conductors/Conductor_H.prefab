@@ -125,4 +125,4 @@ MonoBehaviour:
   connections: 00010001
   obstacles:
     serializedVersion: 2
-    m_Bits: 6144
+    m_Bits: 6400
