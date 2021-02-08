@@ -100,7 +100,7 @@ public class Switch : MonoBehaviour
 
             Collider2D hit = Physics2D.OverlapPoint(transform.position + (Vector3)DIRECTIONS[i] + new Vector3(0.5f, 0.5f), obstacles );
             if (hit) 
-                hit.transform.gameObject.SendMessage("Power", new Arguments(DIRECTIONS[i], false, args.off));
+                hit.transform.gameObject.SendMessage("Power", new Arguments(DIRECTIONS[i], false, args.off), SendMessageOptions.DontRequireReceiver);
         }
     }
 }
