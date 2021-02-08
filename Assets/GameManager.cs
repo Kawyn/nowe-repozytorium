@@ -99,7 +99,8 @@ public class GameManager : MonoBehaviour
             audioSource.clip = sounds[2];
         else if (clipName == "s")
             audioSource.clip = sounds[3];
-
+        else if (clipName == "sss")
+            audioSource.clip = sounds[4];
         audioSource.Play();
     }
 }

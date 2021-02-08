@@ -2085,6 +2085,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4846208915967702057, guid: 46c21b7184977c042baa44ef7df7bd77,
+        type: 3}
+      propertyPath: connections.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4846208915967702058, guid: 46c21b7184977c042baa44ef7df7bd77,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2578,6 +2583,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8e869956fb36f874f95fd6fc6c2475bd, type: 3}
   - {fileID: 8300000, guid: 0baabeedff927764eafb4352a83146ec, type: 3}
   - {fileID: 8300000, guid: 3439b775f3a4f70419a04a3020af7316, type: 3}
+  - {fileID: 8300000, guid: 0efce56c894969e4b84de13a8f3238e1, type: 3}
   testMode: 0
   numbers:
   - {fileID: 3830642159544845040, guid: c08036d5b6e36e44cb0f5323dcae4f8a, type: 3}
@@ -3919,6 +3925,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4846208915967702057, guid: 46c21b7184977c042baa44ef7df7bd77,
+        type: 3}
+      propertyPath: connections.Array.data[3]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4846208915967702058, guid: 46c21b7184977c042baa44ef7df7bd77,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ending : MonoBehaviour
 {
@@ -15,7 +13,7 @@ public class ending : MonoBehaviour
 
         if(eeaeda.turn == 1 && !ee)
         {
-            gameManager.PlaySound("b");
+            gameManager.PlaySound("sss");
             plug.SetActive(false);
             ee = true;
             congs.SetActive(true);
@@ -25,5 +23,4 @@ public class ending : MonoBehaviour
                 gameManager.NextLevel();
         
     }
-
 }

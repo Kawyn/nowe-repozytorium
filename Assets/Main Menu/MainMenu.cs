@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private static int NUMBER_OF_LEVELS = 10;
+    private static int NUMBER_OF_LEVELS = 14;
     public Sprite[] mains;
     public Sprite[] levels;
 
@@ -120,7 +120,7 @@ public class MainMenu : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                if (index == 0 || index == 4)
+                if (index == 4)
                     return;
 
                 ChangeLevel(-1);
@@ -134,7 +134,7 @@ public class MainMenu : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                if (index == 3 || index == 7)
+                if (index == 3 )
                     return;
 
                 ChangeLevel(1);
@@ -171,32 +171,68 @@ public class MainMenu : MonoBehaviour
 
     private void ChangeLevel(int offset) 
     {
-
-        if (index + offset >= available)
+        if (index + 8 * page + offset >= available -1)
             return;
        if(index + offset < 0)
         {
             if (page > 0)
             {
                 page--;
-                for (int i = page * 8; i < page *  8 + 8; i++)
+                for (int i = page * 8; i < page * 8 + 8; i++)
                 {
                     if (i < available && i < NUMBER_OF_LEVELS)
                         continue;
+                    if (i <= NUMBER_OF_LEVELS)
+                    {
+                        padlocks[i - 8 * page].SetActive(false);
+                        continue;
+                    }
 
-
-                    padlocks[i].SetActive(true);
+                    padlocks[i - 8 * page].SetActive(true);
                 }
                 index = 0;
                 spriteRenderer.sprite = levels[page * 8 + index];
                 main = false;
+                index += offset;
+              
+                return;
             }
+            return;
+        }
+       else if(index + offset > 7)
+        {
+            if(page < 1)
+            {   
+                page++;
+                for (int i = page * 8; i < page * 8 + 8; i++)
+                {
+                    if (i < available && i < NUMBER_OF_LEVELS)
+                        continue;
+
+                    if (i >= NUMBER_OF_LEVELS)
+                    {
+                        padlocks[i - 8 * page].SetActive(false);
+                        continue;
+                    }
+                    padlocks[i - 8 * page].SetActive(true);
+                }
+                index = 0;
+                spriteRenderer.sprite = levels[page * 8 + index];
+                main = false;
+        
+                return;
+            }
+            return;
         }
 
-        index += offset;
-        audioSource.clip = clips[0];
-        audioSource.Play();
+        if (index + offset >= 0)
+        {
+            index += offset;
 
-        spriteRenderer.sprite = levels[page * 8 + index];
+            audioSource.clip = clips[0];
+            audioSource.Play();
+            if (index + page * 8 > 0)
+                spriteRenderer.sprite = levels[page * 8 + index];
+        }
     }
 }
