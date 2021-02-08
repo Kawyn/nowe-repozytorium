@@ -20,14 +20,14 @@ public class Gate : MonoBehaviour
 
         if (open)
         {
-            if (!horizontal && args.source.y ==0)
+            if (!horizontal && args.source.y == 0)
             {
                 // +X
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.right + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
                     hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, powered), SendMessageOptions.DontRequireReceiver);
-
+                
                 // -X
                 hit = Physics2D.OverlapPoint(transform.position + Vector3.left + new Vector3(0.5f, 0.5f), obstacles);
 
@@ -50,35 +50,6 @@ public class Gate : MonoBehaviour
             }
         
         }
-       else
-        {
-            if (!horizontal)
-            {
-                Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.right + new Vector3(0.5f, 0.5f), obstacles);
-
-                if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, true), SendMessageOptions.DontRequireReceiver);
-
-                hit = Physics2D.OverlapPoint(transform.position + Vector3.left + new Vector3(0.5f, 0.5f), obstacles);
-
-                if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, true), SendMessageOptions.DontRequireReceiver);
-            }
-            else
-            {
-                // +Y
-                Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.up + new Vector3(0.5f, 0.5f), obstacles);
-
-                if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.up, false, true), SendMessageOptions.DontRequireReceiver);
-
-                // -Y
-                hit = Physics2D.OverlapPoint(transform.position + Vector3.down + new Vector3(0.5f, 0.5f), obstacles);
-
-                if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, true), SendMessageOptions.DontRequireReceiver);
-            }
-        }
         if (args.source.x != 0 && horizontal)
         {
             open = !args.off;
@@ -87,12 +58,11 @@ public class Gate : MonoBehaviour
         {
             open = !args.off;
         }
-
         else
         {
             powered = !args.off;
-
         }
+
         spriteRenderer.sprite = sprites[open ? 0 : 1];
     }
 }

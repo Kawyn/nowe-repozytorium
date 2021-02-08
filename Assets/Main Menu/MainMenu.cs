@@ -15,7 +15,6 @@ public class MainMenu : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     
 
-    private List<GameObject> highlights = new List<GameObject>();
     private List<GameObject> padlocks = new List<GameObject>();
 
     int page = 0;
@@ -38,9 +37,7 @@ public class MainMenu : MonoBehaviour
         {
             GameObject c = transform.GetChild(i).gameObject;
 
-            if (c.CompareTag("Highlight"))
-                highlights.Add(c);
-            else if (c.CompareTag("Padlock"))
+            if (c.CompareTag("Padlock"))
                 padlocks.Add(c);
 
             c.SetActive(false);
@@ -96,12 +93,11 @@ public class MainMenu : MonoBehaviour
                             if (i < available && i < NUMBER_OF_LEVELS)
                                 continue;
 
-
-                            print(i);
+                           
                             padlocks[i].SetActive(true);
                         }
-
-                        highlights[0].SetActive(true);
+                        page = 0;
+                        index = 0;
                         spriteRenderer.sprite = levels[0];
                         main = false;
                         break;
@@ -149,7 +145,6 @@ public class MainMenu : MonoBehaviour
                 for (int i = 0; i < 8; i++)
                 {
                     padlocks[i].SetActive(false);
-                    highlights[i].SetActive(false);
                 }
 
                 spriteRenderer.sprite = mains[0];
@@ -177,11 +172,31 @@ public class MainMenu : MonoBehaviour
     private void ChangeLevel(int offset) 
     {
 
+        if (index + offset >= available)
+            return;
+       if(index + offset < 0)
+        {
+            if (page > 0)
+            {
+                page--;
+                for (int i = page * 8; i < page *  8 + 8; i++)
+                {
+                    if (i < available && i < NUMBER_OF_LEVELS)
+                        continue;
+
+
+                    padlocks[i].SetActive(true);
+                }
+                index = 0;
+                spriteRenderer.sprite = levels[page * 8 + index];
+                main = false;
+            }
+        }
+
+        index += offset;
         audioSource.clip = clips[0];
         audioSource.Play();
 
-        highlights[index].SetActive(false);
-        index += offset;
-        highlights[index].SetActive(true);
+        spriteRenderer.sprite = levels[page * 8 + index];
     }
 }
