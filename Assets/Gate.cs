@@ -26,13 +26,13 @@ public class Gate : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.right + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.right, false, args.off), SendMessageOptions.DontRequireReceiver);
                 
                 // -X
                 hit = Physics2D.OverlapPoint(transform.position + Vector3.left + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.left, false, args.off), SendMessageOptions.DontRequireReceiver);
             }
             else if(horizontal && args.source.x == 0)
             {
@@ -40,13 +40,13 @@ public class Gate : MonoBehaviour
                 Collider2D hit = Physics2D.OverlapPoint(transform.position + Vector3.up + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.up, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.up, false, args.off), SendMessageOptions.DontRequireReceiver);
 
                 // -Y
                 hit = Physics2D.OverlapPoint(transform.position + Vector3.down + new Vector3(0.5f, 0.5f), obstacles);
 
                 if (hit)
-                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, powered), SendMessageOptions.DontRequireReceiver);
+                    hit.transform.gameObject.SendMessage("Power", new Arguments(Vector3.down, false, args.off), SendMessageOptions.DontRequireReceiver);
             }
         
         }
