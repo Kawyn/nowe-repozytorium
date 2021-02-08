@@ -204,6 +204,8 @@ public class Plug : MonoBehaviour
 
         if (history.Count >= 2)
             SetRotation(history[history.Count - 2]);
+        else if (remote) 
+             SetRotation(remoteConnection);
         else
             SetRotation(gameManager.plugPosition - gameManager.enterance);
 
